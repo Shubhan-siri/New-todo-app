@@ -2,13 +2,13 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_IMAGE = "your-dockerhub-username/todo-app:latest"
+        DOCKER_IMAGE = "thedevopsdocker/todo-app:1.0"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/<your-username>/todo-app.git'
+                git 'https://github.com/Shubhan-siri/New-todo-app.git'
             }
         }
         
@@ -20,7 +20,11 @@ pipeline {
 
         stage('Push to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub',       // Jenkins me jo ID di thi
+                    usernameVariable: 'DOCKER_USER',  // bas variable ka naam
+                    passwordVariable: 'DOCKER_PASS'   // yaha bhi bas naam
+                )]) {
                     sh '''
                         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
                         docker push $DOCKER_IMAGE
