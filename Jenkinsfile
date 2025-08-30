@@ -8,7 +8,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Shubhan-siri/New-todo-app.git'
+                // Explicitly main branch ka use kar rahe hain
+                git branch: 'main', url: 'https://github.com/Shubhan-siri/New-todo-app.git'
             }
         }
         
